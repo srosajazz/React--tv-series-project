@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Intro from '../Intro'
 import './App.css';
+import 'whatwg-fetch';
 
 class App extends Component {
   state = {
@@ -8,11 +9,9 @@ class App extends Component {
   }
 
   componentDidMount(){
-    const series = ["Huck", "Game of Thrones"];
-
-    setTimeout(() => {
-     this.setState({ series }); 
-    }, 2000);
+    fetch('http://api.tvmaze.com/shows/1/episodes?specials=1')
+      .then(response => response.json())
+      .then(json =>this.setState({ series: json}))
   }
 
   render() {
